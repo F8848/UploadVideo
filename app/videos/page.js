@@ -55,10 +55,27 @@ export default function VideoList() {
       {!loading && !error && (
         videos.length > 0 ? (
           <div className="relative w-full max-w-6xl">
-            <ul className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <ul className={
+              videos.length === 1
+                ? "flex justify-center items-center"
+                : "grid grid-cols-1 sm:grid-cols-3 gap-8"
+            }>
               {videos.map((video) => (
-                <li key={video.name} className="flex flex-col items-center justify-center p-0 sm:p-0 rounded-2xl overflow-hidden border-0">
-                  <div className="w-full aspect-video flex items-center justify-center border border-gray-300 rounded-2xl shadow-inner overflow-hidden bg-white/90 relative">
+                <li
+                  key={video.name}
+                  className={
+                    videos.length === 1
+                      ? "flex flex-col items-center justify-center p-0 sm:p-0 rounded-2xl overflow-hidden border-0 w-full sm:w-[400px]"
+                      : "flex flex-col items-center justify-center p-0 sm:p-0 rounded-2xl overflow-hidden border-0"
+                  }
+                >
+                  <div
+                    className={
+                      videos.length === 1
+                        ? "w-full aspect-video flex items-center justify-center border border-gray-300 rounded-2xl shadow-inner overflow-hidden bg-white/90 relative sm:w-[400px]"
+                        : "w-full aspect-video flex items-center justify-center border border-gray-300 rounded-2xl shadow-inner overflow-hidden bg-white/90 relative"
+                    }
+                  >
                     <video
                       className="w-full h-auto block rounded-2xl bg-black"
                       controls
