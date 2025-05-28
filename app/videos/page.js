@@ -35,9 +35,20 @@ export default function VideoList() {
       });
       const data = await res.json();
       if (res.ok) {
-        setVideos(videos.filter(v => v !== filename));
         setDeleteSuccess('删除成功');
         setTimeout(() => setDeleteSuccess(''), 2000);
+        // 自动刷新页面（重新获取视频列表）
+        fetch("/api/cvideo?meta=1")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.videos && data.videos.length > 0) {
+              setVideos(
+                data.videos.sort((a, b) => new Date(a.mtime) - new Date(b.mtime))
+              );
+            } else {
+              setVideos([]);
+            }
+          });
       } else {
         alert(data.error || '删除失败');
       }
